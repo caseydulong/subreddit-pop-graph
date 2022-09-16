@@ -12,14 +12,14 @@
   color: white;
 }
 
-.Add-subs {
+.Add-subreddits {
   background-color: gray;
   height: 25rem;
   margin: 1rem;
   padding: 1rem;
 }
 
-.Add-sub {
+.Subreddit {
   background-color: darkslategray;
   display: flex;
   margin-bottom: 1rem;
