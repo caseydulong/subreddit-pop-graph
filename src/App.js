@@ -1,5 +1,8 @@
-import './App.css';
-import React from 'react';
+import './App.css'
+import React from 'react'
+
+// Import components
+import AddSubreddits from './AddSubreddits.js'
 
 class App extends React.Component {
   constructor(props) {
@@ -58,63 +61,4 @@ class App extends React.Component {
   }
 }
 
-class AddSubreddits extends React.Component {
-  renderSubreddit(i) {
-    return (
-      <Subreddit
-        id={i}
-        key={i}
-        value={this.props.subreddits[i]}
-        handleChange={this.props.editSubreddit}
-        removeSubreddit={this.props.removeSubreddit}
-      />
-    )
-  }
-
-  render() {
-    // Prepares array of Subreddit components for each subredit in state
-    let subreddits = []
-    for (let i = 0; i < this.props.subreddits.length; i++) {
-      subreddits.push(this.renderSubreddit(i))
-    }
-
-    return (
-      <div className="Add-subreddits">
-        {subreddits}
-        <button
-          type="button"
-          onClick={this.props.newSubreddit} >
-          +
-        </button>
-      </div>
-    )
-  }
-}
-
-class Subreddit extends React.Component {
-  render() {
-    return (
-      <div className="Subreddit">
-        <form>
-          <input
-            type="text"
-            id={this.props.id}
-            value={this.props.value}
-            onChange={this.props.handleChange} />
-        </form>
-        <button
-          type="button"
-          id={this.props.id}
-          onClick={this.props.removeSubreddit} >
-          Delete
-        </button>
-      </div>
-    )
-  }
-}
-
-class Graph extends React.Component {
-  // TODO
-}
-
-export default App;
+export default App
