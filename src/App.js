@@ -21,8 +21,8 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({subreddits: [""]})
     this.getToken()
+    this.newSubreddit()
   }
 
   getToken() {
@@ -50,7 +50,10 @@ export default class App extends React.Component {
 
   newSubreddit() {
     let subreddits = this.state.subreddits
-    subreddits.push("")
+    const subreddit = {
+      name: ''
+    }
+    subreddits.push(subreddit)
     this.setState({subreddits: subreddits})
   }
 
@@ -62,7 +65,7 @@ export default class App extends React.Component {
 
   editSubreddit(event) {
     let subreddits = this.state.subreddits
-    subreddits[event.target.id] = event.target.value
+    subreddits[event.target.id].name = event.target.value
     this.setState({subreddits: subreddits})
   }
 
