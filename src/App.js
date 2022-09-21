@@ -10,6 +10,7 @@ export default class App extends React.Component {
     super(props)
 
     this.state = {
+      // TODO: update token when expired
       token: {},
       subreddits: []
     }
