@@ -7,7 +7,7 @@ export default class AddSubreddits extends React.Component {
       <Subreddit
         id={i}
         key={i}
-        value={this.props.subreddits[i]}
+        value={this.props.subreddits[i].name}
         handleChange={this.props.editSubreddit}
         removeSubreddit={this.props.removeSubreddit}
       />
