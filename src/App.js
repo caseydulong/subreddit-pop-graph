@@ -1,14 +1,16 @@
 import './App.css'
 import React from 'react'
+import axios from 'axios'
 
 // Import components
 import AddSubreddits from './AddSubreddits.js'
 
-class App extends React.Component {
+export default class App extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
+      token: {},
       subreddits: []
     }
 
@@ -19,6 +21,30 @@ class App extends React.Component {
 
   componentDidMount() {
     this.setState({subreddits: [""]})
+    this.getToken()
+  }
+
+  getToken() {
+    let username = 'rtk6PchFDyqEd3ZEMggrjA'
+    let password = 'HT8kl83F1doV47KhvsOEuGta7qe54Q'
+    let credentials = btoa(`${username}:${password}`)
+
+    const params = new URLSearchParams()
+      params.append('grant_type', 'client_credentials')
+
+    axios({
+      url: 'https://www.reddit.com/api/v1/access_token',
+      method: 'post',
+      headers: {
+        'Authorization': `Basic ${credentials}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+        // 'User-Agent': 'chrome:PopGraph:v0.0.0 (by /u/tordek1265)'
+      },
+      params
+    })
+      .then(response => {
+        this.setState({ token: response.data })
+      })
   }
 
   newSubreddit() {
@@ -44,9 +70,7 @@ class App extends React.Component {
       <div className="App">
         <header className="App-header">
           <h1>Subreddit Pop Graph</h1>
-          <p>
-            Enter subreddits to compare user populations.
-          </p>
+          <h2>Enter subreddits to compare user populations.</h2>
         </header>
         <main>
           <AddSubreddits
@@ -60,5 +84,3 @@ class App extends React.Component {
     )
   }
 }
-
-export default App
