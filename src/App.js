@@ -4,6 +4,7 @@ import axios from 'axios'
 
 // Import components
 import AddSubreddits from './AddSubreddits.js'
+import Graph         from './Graph.js'
 
 export default class App extends React.Component {
   constructor(props) {
@@ -11,13 +12,14 @@ export default class App extends React.Component {
 
     this.state = {
       // TODO: update token when expired
-      token: {},
+      auth: {},
       subreddits: []
     }
 
-    this.newSubreddit = this.newSubreddit.bind(this)
+    this.newSubreddit    = this.newSubreddit.bind(this)
     this.removeSubreddit = this.removeSubreddit.bind(this)
-    this.editSubreddit = this.editSubreddit.bind(this)
+    this.editSubreddit   = this.editSubreddit.bind(this)
+    this.searchSubreddit = this.searchSubreddit.bind(this)
   }
 
   componentDidMount() {
@@ -32,19 +34,18 @@ export default class App extends React.Component {
 
     const params = new URLSearchParams()
       params.append('grant_type', 'client_credentials')
-
+  
     axios({
       url: 'https://www.reddit.com/api/v1/access_token',
       method: 'post',
       headers: {
         'Authorization': `Basic ${credentials}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-        // 'User-Agent': 'chrome:PopGraph:v0.0.0 (by /u/tordek1265)'
+        'Content-Type': 'application/x-www-form-urlencoded'
       },
       params
     })
       .then(response => {
-        this.setState({ token: response.data })
+        this.setState({ auth: response.data })
       })
   }
 
@@ -69,6 +70,33 @@ export default class App extends React.Component {
     this.setState({subreddits: subreddits})
   }
 
+  searchSubreddit(event) {
+    let id = event.target.id
+    let subreddits = this.state.subreddits
+    let accessToken = this.state.auth.access_token
+    let params = new URLSearchParams()
+      params.append('exact', 'true')
+      params.append('include_over_18', 'true')
+      params.append('include_unadvertisable', 'false')
+      params.append('query', subreddits[id].name)
+      params.append('search_query_id', id)
+
+    console.log(event.target)
+    console.log(params.toString())
+
+    axios({
+      url: `https://oauth.reddit.com/api/search_subreddits?${params}`,
+      method: 'post',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    })
+      .then(response => {
+        subreddits[id] = response.data.subreddits[0]
+        this.setState({subreddits: subreddits})
+      })
+  }
+
   render() {
     return (
       <div className="App">
@@ -82,7 +110,9 @@ export default class App extends React.Component {
             newSubreddit={this.newSubreddit}
             removeSubreddit={this.removeSubreddit}
             editSubreddit={this.editSubreddit}
+            searchSubreddit={this.searchSubreddit}
           />
+          <Graph />
         </main>
       </div>
     )

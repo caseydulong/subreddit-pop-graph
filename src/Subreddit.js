@@ -14,6 +14,12 @@ export default class Subreddit extends React.Component {
         <button
           type="button"
           id={this.props.id}
+          onClick={this.props.searchSubreddit} >
+          Search
+        </button>
+        <button
+          type="button"
+          id={this.props.id}
           onClick={this.props.removeSubreddit} >
           Delete
         </button>
