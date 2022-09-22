@@ -1,5 +1,11 @@
 import React from 'react'
 
 export default class Graph extends React.Component {
-  // TODO
+  render() {
+    return (
+      <div className="Graph">
+        <p>Nothing to see here.</p>
+      </div>
+    )
+  }
 }

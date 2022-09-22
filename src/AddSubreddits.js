@@ -10,6 +10,7 @@ export default class AddSubreddits extends React.Component {
         value={this.props.subreddits[i].name}
         handleChange={this.props.editSubreddit}
         removeSubreddit={this.props.removeSubreddit}
+        searchSubreddit={this.props.searchSubreddit}
       />
     )
   }
