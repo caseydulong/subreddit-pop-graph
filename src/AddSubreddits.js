@@ -23,10 +23,10 @@ export default class AddSubreddits extends React.Component {
     }
 
     return (
-      <div className="Add-subreddits">
+      <div className='Add-subreddits'>
         {subreddits}
         <button
-          type="button"
+          type='button'
           onClick={this.props.newSubreddit} >
           +
         </button>
