@@ -1,6 +1,7 @@
 import './App.css'
 import React from 'react'
 import axios from 'axios'
+import Chart from 'react-apexcharts'
 
 // Import components
 import AddSubreddits from './AddSubreddits.js'
@@ -13,7 +14,25 @@ export default class App extends React.Component {
     this.state = {
       // TODO: update token when expired
       auth: {},
-      subreddits: []
+      subreddits: [],
+      options: {
+        chart: {
+          id: 'subreddit-pop',
+          type: 'bar',
+          stacked: true,
+          toolbar: { show: false }
+        },
+        xaxis: {
+          categories: ['one', 'two', 'three', 'four']
+        }
+      },
+      series: [{
+        name: 'subscriber_count',
+        data: [41, 67, 22, 43]
+      }, {
+        name: 'active_user_count',
+        data: [44, 55, 41, 67]
+      }]
     }
 
     this.newSubreddit    = this.newSubreddit.bind(this)
@@ -30,7 +49,7 @@ export default class App extends React.Component {
   getToken() {
     let username = 'rtk6PchFDyqEd3ZEMggrjA'
     let password = 'HT8kl83F1doV47KhvsOEuGta7qe54Q'
-    let credentials = btoa(`${username}:${password}`)
+    let credentials = window.btoa(`${username}:${password}`)
 
     const params = new URLSearchParams()
       params.append('grant_type', 'client_credentials')
@@ -52,7 +71,7 @@ export default class App extends React.Component {
   newSubreddit() {
     let subreddits = this.state.subreddits
     const subreddit = {
-      name: ''
+      name: 'worldofpvp'
     }
     subreddits.push(subreddit)
     this.setState({subreddits: subreddits})
@@ -81,9 +100,6 @@ export default class App extends React.Component {
       params.append('query', subreddits[id].name)
       params.append('search_query_id', id)
 
-    console.log(event.target)
-    console.log(params.toString())
-
     axios({
       url: `https://oauth.reddit.com/api/search_subreddits?${params}`,
       method: 'post',
@@ -94,13 +110,33 @@ export default class App extends React.Component {
       .then(response => {
         subreddits[id] = response.data.subreddits[0]
         this.setState({subreddits: subreddits})
+        this.updateGraph()
       })
+  }
+
+  updateGraph() {
+    let aSubreddits = this.state.subreddits
+    let numberOfSubs = aSubreddits.length
+    // Deep copy of array so state recognizes as an updated object and re-renders
+    let aOptions = structuredClone(this.state.options)
+    let aSeries = this.state.series
+
+    for (let i = 0; i < numberOfSubs; i++) {
+      aSeries[0].data.push(aSubreddits[i].subscriber_count)
+      aSeries[1].data.push(aSubreddits[i].active_user_count)
+      aOptions.xaxis.categories.push(aSubreddits[i].name)
+    }
+
+    this.setState({
+      options: aOptions,
+      series: aSeries
+    })
   }
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
+      <div className='App'>
+        <header className='App-header'>
           <h1>Subreddit Pop Graph</h1>
           <h2>Enter subreddits to compare user populations.</h2>
         </header>
@@ -112,7 +148,10 @@ export default class App extends React.Component {
             editSubreddit={this.editSubreddit}
             searchSubreddit={this.searchSubreddit}
           />
-          <Graph />
+          <Graph
+            options={this.state.options}
+            series={this.state.series}
+          />
         </main>
       </div>
     )
