@@ -19,7 +19,7 @@ export default class AddSubreddits extends React.Component {
     // Prepares array of Subreddit components for each subredit in state
     let subreddits = []
     for (let i = 0; i < this.props.subreddits.length; i++) {
-      subreddits.push(this.renderSubreddit(i))
+      subreddits.push(this.renderSubreddit(`${i}`))
     }
 
     return (
