@@ -117,6 +117,7 @@ export default class App extends React.Component {
       }
     })
       .then(response => {
+        console.log(response)
         subreddits[id] = response.data.subreddits[0]
         this.setState({subreddits: subreddits})
       })
