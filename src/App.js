@@ -9,6 +9,14 @@ import Graph from './Graph.js'
 // Material UI
 import { Box, Tab } from '@mui/material'
 import { TabContext, TabList, TabPanel } from '@mui/lab'
+import { ThemeProvider, createTheme } from '@mui/material/styles'
+import CssBaseline from '@mui/material/CssBaseline'
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+})
 
 export default class App extends React.Component {
   constructor(props) {
@@ -47,7 +55,10 @@ export default class App extends React.Component {
 
   componentDidMount() {
     this.getToken()
-    this.newSubreddit()
+    // Add some blank subreddit fields
+    for (let i = 0; i < 3; i++) {
+      this.newSubreddit()
+    }
   }
 
   handleTabChange(event, newTabIndex) {
@@ -80,7 +91,10 @@ export default class App extends React.Component {
   newSubreddit() {
     let subreddits = this.state.subreddits
     const subreddit = {
-      name: 'worldofpvp'
+      validation: 0,
+      data: {
+        name: ''
+      }
     }
     subreddits.push(subreddit)
     this.setState({subreddits: subreddits})
@@ -94,19 +108,32 @@ export default class App extends React.Component {
 
   editSubreddit(event) {
     let subreddits = this.state.subreddits
-    subreddits[event.target.id].name = event.target.value
+    subreddits[event.target.id].data.name = event.target.value
     this.setState({subreddits: subreddits})
   }
 
   searchSubreddit(event) {
     let id = event.target.id
     let subreddits = this.state.subreddits
+
+    // No API call if field is blank
+    if (this.state.subreddits[id].data.name == '') {
+      subreddits[id] = {
+        validation: 0,
+        data: {
+          name: ''
+        }
+      }
+      this.setState({subreddits: subreddits})
+      return
+    }
+
     let accessToken = this.state.auth.access_token
     let params = new URLSearchParams()
       params.append('exact', 'true')
       params.append('include_over_18', 'true')
       params.append('include_unadvertisable', 'false')
-      params.append('query', subreddits[id].name)
+      params.append('query', subreddits[id].data.name)
       params.append('search_query_id', id)
 
     axios({
@@ -117,8 +144,17 @@ export default class App extends React.Component {
       }
     })
       .then(response => {
-        console.log(response)
-        subreddits[id] = response.data.subreddits[0]
+        subreddits[id] = {
+          validation: 1,
+          data: response.data.subreddits[0]
+        }
+        this.setState({subreddits: subreddits})
+      })
+      .catch(response => {
+        subreddits[id] = {
+          validation: -1,
+          data: { name: subreddits[id].data.name }
+        }
         this.setState({subreddits: subreddits})
       })
   }
@@ -130,9 +166,9 @@ export default class App extends React.Component {
     let aOptions = this.state.options
     let aSeries = this.state.series
 
-    aOptions.xaxis.categories = aSubreddits.map(sub => sub.name)
-    aSeries[0].data = aSubreddits.map(sub => sub.subscriber_count)
-    aSeries[1].data = aSubreddits.map(sub => sub.active_user_count)
+    aOptions.xaxis.categories = aSubreddits.map(sub => sub.data.name)
+    aSeries[0].data = aSubreddits.map(sub => sub.data.subscriber_count)
+    aSeries[1].data = aSubreddits.map(sub => sub.data.active_user_count)
 
     this.setState({
       options: aOptions,
@@ -142,37 +178,40 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div className='App'>
-        <header className='App-header'>
-          <h1>Subreddit Pop Graph</h1>
-          <h2>Enter subreddits to compare user populations.</h2>
-        </header>
-        <main>
-          <TabContext value={this.state.tabIndex}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-              <TabList onChange={this.handleTabChange}>
-                <Tab label='Subreddits' value='1' />
-                <Tab label='Graph' value='2' />
-              </TabList>
-            </Box>
-            <TabPanel value='1'>
-              <AddSubreddits
-                subreddits={this.state.subreddits}
-                newSubreddit={this.newSubreddit}
-                removeSubreddit={this.removeSubreddit}
-                editSubreddit={this.editSubreddit}
-                searchSubreddit={this.searchSubreddit}
-              />
-            </TabPanel>
-            <TabPanel value='2'>
-              <Graph
-                options={this.state.options}
-                series={this.state.series}
-              />
-            </TabPanel>
-          </TabContext>
-        </main>
-      </div>
+      <ThemeProvider theme={darkTheme}>
+        <CssBaseline />
+        <div className='App'>
+          <header className='App-header'>
+            <h1>Subreddit Pop Graph</h1>
+            <h2>Enter subreddits to compare user populations.</h2>
+          </header>
+          <main>
+            <TabContext value={this.state.tabIndex}>
+              <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                <TabList onChange={this.handleTabChange}>
+                  <Tab label='Subreddits' value='1' />
+                  <Tab label='Graph' value='2' />
+                </TabList>
+              </Box>
+              <TabPanel value='1'>
+                <AddSubreddits
+                  subreddits={this.state.subreddits}
+                  newSubreddit={this.newSubreddit}
+                  removeSubreddit={this.removeSubreddit}
+                  editSubreddit={this.editSubreddit}
+                  searchSubreddit={this.searchSubreddit}
+                />
+              </TabPanel>
+              <TabPanel value='2'>
+                <Graph
+                  options={this.state.options}
+                  series={this.state.series}
+                />
+              </TabPanel>
+            </TabContext>
+          </main>
+        </div>
+      </ThemeProvider>
     )
   }
 }

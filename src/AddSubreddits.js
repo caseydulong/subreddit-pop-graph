@@ -1,5 +1,7 @@
 import React from 'react'
 import Subreddit from './Subreddit.js'
+import { IconButton, Container } from '@mui/material'
+import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined'
 
 export default class AddSubreddits extends React.Component {
   renderSubreddit(i) {
@@ -7,12 +9,22 @@ export default class AddSubreddits extends React.Component {
       <Subreddit
         id={i}
         key={i}
-        value={this.props.subreddits[i].name}
+        value={this.props.subreddits[i].data.name}
+        validation={this.props.subreddits[i].validation}
+        helperText={this.handleError(this.props.subreddits[i].validation)}
         handleChange={this.props.editSubreddit}
         removeSubreddit={this.props.removeSubreddit}
         searchSubreddit={this.props.searchSubreddit}
       />
     )
+  }
+
+  handleError(error) {
+    const errorString = error.toString()
+    const errorCodes = {
+      '-1': 'Invalid subreddit'
+    }
+    return error < 0 ? errorCodes[errorString] : ''
   }
 
   render() {
@@ -23,14 +35,14 @@ export default class AddSubreddits extends React.Component {
     }
 
     return (
-      <div className='Add-subreddits'>
+      <Container>
         {subreddits}
-        <button
+        <IconButton
           type='button'
           onClick={this.props.newSubreddit} >
-          +
-        </button>
-      </div>
+          <AddBoxOutlinedIcon />
+        </IconButton>
+      </Container>
     )
   }
 }
