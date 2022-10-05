@@ -1,27 +1,54 @@
+body {
+  height: 100vh;
+  /* margin: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0; */
+}
+#root {
+  height: 100%;
+}
 .App {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   text-align: center;
 }
-
+main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 0;
+}
 .App-header {
-  background-color: #282c34;
+  background-color: #1b3408;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  color: #f7f7d4;
 }
 
+/* ADD SUBREDDITS */
 .Add-subreddits {
-  background-color: gray;
-  height: 25rem;
-  margin: 1rem;
-  padding: 1rem;
-}
-
-.Subreddit {
-  background-color: darkslategray;
+  background-color: #303030;
   display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 0;
+}
+.Add-subreddits-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 0;
+  overflow: auto;
+}
+.Subreddit {
+  background-color: #424242;
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 1rem;
   padding: 1rem;
 }

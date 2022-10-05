@@ -11,10 +11,26 @@ import { Box, Tab } from '@mui/material'
 import { TabContext, TabList, TabPanel } from '@mui/lab'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
+import { Reddit, BarChart } from '@mui/icons-material'
 
+// Material UI Theme
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
+    primary: {
+      main: '#66b032',
+      dark: '#142806',
+      light: '#1b3408',
+    },
+    secondary: {
+      main: '#c21460',
+    },
+    text: {
+      primary: '#f7f7d4',
+    },
+    error: {
+      main: '#f44336',
+    },
   },
 })
 
@@ -188,12 +204,25 @@ export default class App extends React.Component {
           <main>
             <TabContext value={this.state.tabIndex}>
               <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <TabList onChange={this.handleTabChange}>
-                  <Tab label='Subreddits' value='1' />
-                  <Tab label='Graph' value='2' />
+                <TabList variant='fullWidth' onChange={this.handleTabChange}>
+                  <Tab icon={<Reddit />} iconPosition='start' label='Subreddits' value='1' />
+                  <Tab icon={<BarChart />} iconPosition='start' label='Chart' value='2' />
                 </TabList>
               </Box>
-              <TabPanel value='1'>
+
+              {/* Tab 1 */}
+              <TabPanel
+                value='1'
+                sx={{
+                  display: 'flex',
+                  flexGrow: '1',
+                  // position: 'absolute',
+                  // top: '0',
+                  // bottom: '0',
+                  // left: '0',
+                  // padding: '0'
+                }}
+              >
                 <AddSubreddits
                   subreddits={this.state.subreddits}
                   newSubreddit={this.newSubreddit}
@@ -202,6 +231,8 @@ export default class App extends React.Component {
                   searchSubreddit={this.searchSubreddit}
                 />
               </TabPanel>
+
+              {/* Tab 2 */}
               <TabPanel value='2'>
                 <Graph
                   options={this.state.options}
