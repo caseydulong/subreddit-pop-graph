@@ -1,27 +1,75 @@
+/* VARIABLES */
+html {
+  --cream: #f7f7d4;
+  --clear-cream: rgba(247, 247, 212, .9);
+  --lemon: #fefe33;
+  --theme-pink: #c21460;
+  --light-green: #66b032;
+  --dark-green: #1b3408;
+  --darker-green: #142806;
+  --clear-darker-green: rgba(20, 40, 6, .9);
+  --darkest-green: #0f1f05;
+  --shadow: rgba(0, 0, 0, .4);
+}
+
+/* REACT DEFAULT */
 .App {
   text-align: center;
 }
-
 .App-header {
-  background-color: #282c34;
+  align-items: center;
+  background-color: #1b3408;
+  box-shadow: 0px 5px 5px var(--shadow);
+  color: #f7f7d4;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  position: relative;
+  z-index: 11;
 }
 
+/* TABS */
+.Tabs-list-container {
+  background-color: #1b3408;
+  border-bottom: 1;
+  border-color: divider;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* ADD SUBREDDITS */
 .Add-subreddits {
-  background-color: gray;
-  height: 25rem;
-  margin: 1rem;
-  padding: 1rem;
-}
-
-.Subreddit {
-  background-color: darkslategray;
+  align-items: center;
+  background-color: #303030;
   display: flex;
+  flex-direction: column;
+}
+.Add-subreddits-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  max-width: 1000px;
+  width: 100%;
+}
+.Subreddit {
+  background-color: #424242;
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
   margin-bottom: 1rem;
   padding: 1rem;
+}
+
+/* GRAPH */
+.Graph {
+  background-color: #303030;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+}
+.Graph-container {
+  flex-grow: 1;
+  margin: 0;
+  max-width: 1000px;
 }

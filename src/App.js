@@ -7,16 +7,9 @@ import AddSubreddits from './AddSubreddits.js'
 import Graph from './Graph.js'
 
 // Material UI
-import { Box, Tab } from '@mui/material'
+import { AppBar, Tab } from '@mui/material'
 import { TabContext, TabList, TabPanel } from '@mui/lab'
-import { ThemeProvider, createTheme } from '@mui/material/styles'
-import CssBaseline from '@mui/material/CssBaseline'
-
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-})
+import { Reddit, BarChart } from '@mui/icons-material'
 
 export default class App extends React.Component {
   constructor(props) {
@@ -178,40 +171,45 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <ThemeProvider theme={darkTheme}>
-        <CssBaseline />
-        <div className='App'>
-          <header className='App-header'>
-            <h1>Subreddit Pop Graph</h1>
-            <h2>Enter subreddits to compare user populations.</h2>
-          </header>
-          <main>
-            <TabContext value={this.state.tabIndex}>
-              <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <TabList onChange={this.handleTabChange}>
-                  <Tab label='Subreddits' value='1' />
-                  <Tab label='Graph' value='2' />
-                </TabList>
-              </Box>
-              <TabPanel value='1'>
-                <AddSubreddits
-                  subreddits={this.state.subreddits}
-                  newSubreddit={this.newSubreddit}
-                  removeSubreddit={this.removeSubreddit}
-                  editSubreddit={this.editSubreddit}
-                  searchSubreddit={this.searchSubreddit}
-                />
-              </TabPanel>
-              <TabPanel value='2'>
-                <Graph
-                  options={this.state.options}
-                  series={this.state.series}
-                />
-              </TabPanel>
-            </TabContext>
-          </main>
-        </div>
-      </ThemeProvider>
+      <div className='App'>
+        <header className='App-header'>
+          <h1>Subreddit Pop Graph</h1>
+        </header>
+        <main>
+          <TabContext value={this.state.tabIndex}>
+            <div className='Tabs-list-container'>
+              <TabList
+                variant='fullWidth'
+                onChange={this.handleTabChange}
+                // textColor='secondary'
+                indicatorColor='secondary'
+              >
+                <Tab icon={<Reddit />} iconPosition='start' label='Subreddits' value='1' />
+                <Tab icon={<BarChart />} iconPosition='start' label='Chart' value='2' />
+              </TabList>
+            </div>
+
+            {/* Tab 1 */}
+            <TabPanel value='1'>
+              <AddSubreddits
+                subreddits={this.state.subreddits}
+                newSubreddit={this.newSubreddit}
+                removeSubreddit={this.removeSubreddit}
+                editSubreddit={this.editSubreddit}
+                searchSubreddit={this.searchSubreddit}
+              />
+            </TabPanel>
+
+            {/* Tab 2 */}
+            <TabPanel value='2'>
+              <Graph
+                options={this.state.options}
+                series={this.state.series}
+              />
+            </TabPanel>
+          </TabContext>
+        </main>
+      </div>
     )
   }
 }

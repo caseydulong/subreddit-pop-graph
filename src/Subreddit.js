@@ -1,11 +1,11 @@
 import React from 'react'
-import { TextField, IconButton, Box } from '@mui/material'
+import { TextField, IconButton } from '@mui/material'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 
 export default class Subreddit extends React.Component {
   render() {
     return (
-      <Box>
+      <div className='Subreddit'>
         <TextField
           label='Enter Subreddit'
           variant='filled'
@@ -22,7 +22,7 @@ export default class Subreddit extends React.Component {
         >
           <DeleteOutlineOutlinedIcon />
         </IconButton>
-      </Box>
+      </div>
     )
   }
 }

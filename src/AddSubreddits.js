@@ -1,7 +1,7 @@
 import React from 'react'
 import Subreddit from './Subreddit.js'
-import { IconButton, Container } from '@mui/material'
-import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined'
+import { Fab } from '@mui/material'
+import AddIcon from '@mui/icons-material/Add'
 
 export default class AddSubreddits extends React.Component {
   renderSubreddit(i) {
@@ -35,14 +35,18 @@ export default class AddSubreddits extends React.Component {
     }
 
     return (
-      <Container>
-        {subreddits}
-        <IconButton
-          type='button'
+      <div className='Add-subreddits'>
+      <p>Enter subreddits to compare user populations.</p>
+        <div class='Add-subreddits-container'>
+          {subreddits}
+        </div>
+        <Fab
+          sx={{ position: 'fixed', bottom: '0', right: '0', margin: '1rem' }}
+          color='primary'
           onClick={this.props.newSubreddit} >
-          <AddBoxOutlinedIcon />
-        </IconButton>
-      </Container>
+          <AddIcon />
+        </Fab>
+      </div>
     )
   }
 }
