@@ -36,11 +36,12 @@ export default class AddSubreddits extends React.Component {
 
     return (
       <div className='Add-subreddits'>
+      <p>Enter subreddits to compare user populations.</p>
         <div class='Add-subreddits-container'>
           {subreddits}
         </div>
         <Fab
-          sx={{ alignSelf: 'end', marginBottom: '1rem', marginRight: '1rem' }}
+          sx={{ position: 'fixed', bottom: '0', right: '0', margin: '1rem' }}
           color='primary'
           onClick={this.props.newSubreddit} >
           <AddIcon />
