@@ -175,13 +175,6 @@ export default class App extends React.Component {
         <header className='App-header'>
           <h1>Subreddit Pop Graph</h1>
         </header>
-        {/* <AppBar
-          enableColorOnDark
-          position='static'
-          color='primary'
-        >
-          <h1>Subreddit Pop Graph</h1>
-        </AppBar> */}
         <main>
           <TabContext value={this.state.tabIndex}>
             <div className='Tabs-list-container'>
