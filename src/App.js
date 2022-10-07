@@ -7,32 +7,9 @@ import AddSubreddits from './AddSubreddits.js'
 import Graph from './Graph.js'
 
 // Material UI
-import { Box, Tab } from '@mui/material'
+import { AppBar, Tab } from '@mui/material'
 import { TabContext, TabList, TabPanel } from '@mui/lab'
-import { ThemeProvider, createTheme } from '@mui/material/styles'
-import CssBaseline from '@mui/material/CssBaseline'
 import { Reddit, BarChart } from '@mui/icons-material'
-
-// Material UI Theme
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-    primary: {
-      main: '#66b032',
-      dark: '#142806',
-      light: '#1b3408',
-    },
-    secondary: {
-      main: '#c21460',
-    },
-    text: {
-      primary: '#f7f7d4',
-    },
-    error: {
-      main: '#f44336',
-    },
-  },
-})
 
 export default class App extends React.Component {
   constructor(props) {
@@ -194,55 +171,52 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <ThemeProvider theme={darkTheme}>
-        <CssBaseline />
-        <div className='App'>
-          <header className='App-header'>
-            <h1>Subreddit Pop Graph</h1>
-            <h2>Enter subreddits to compare user populations.</h2>
-          </header>
-          <main>
-            <TabContext value={this.state.tabIndex}>
-              <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <TabList variant='fullWidth' onChange={this.handleTabChange}>
-                  <Tab icon={<Reddit />} iconPosition='start' label='Subreddits' value='1' />
-                  <Tab icon={<BarChart />} iconPosition='start' label='Chart' value='2' />
-                </TabList>
-              </Box>
-
-              {/* Tab 1 */}
-              <TabPanel
-                value='1'
-                sx={{
-                  display: 'flex',
-                  flexGrow: '1',
-                  // position: 'absolute',
-                  // top: '0',
-                  // bottom: '0',
-                  // left: '0',
-                  // padding: '0'
-                }}
+      <div className='App'>
+        <header className='App-header'>
+          <h1>Subreddit Pop Graph</h1>
+        </header>
+        {/* <AppBar
+          enableColorOnDark
+          position='static'
+          color='primary'
+        >
+          <h1>Subreddit Pop Graph</h1>
+        </AppBar> */}
+        <main>
+          <TabContext value={this.state.tabIndex}>
+            <div className='Tabs-list-container'>
+              <TabList
+                variant='fullWidth'
+                onChange={this.handleTabChange}
+                // textColor='secondary'
+                indicatorColor='secondary'
               >
-                <AddSubreddits
-                  subreddits={this.state.subreddits}
-                  newSubreddit={this.newSubreddit}
-                  removeSubreddit={this.removeSubreddit}
-                  editSubreddit={this.editSubreddit}
-                  searchSubreddit={this.searchSubreddit}
-                />
-              </TabPanel>
+                <Tab icon={<Reddit />} iconPosition='start' label='Subreddits' value='1' />
+                <Tab icon={<BarChart />} iconPosition='start' label='Chart' value='2' />
+              </TabList>
+            </div>
 
-              {/* Tab 2 */}
-              <TabPanel value='2'>
-                <Graph
-                  options={this.state.options}
-                  series={this.state.series}
-                />
-              </TabPanel>
-            </TabContext>
-          </main>
-        </div>
-      </ThemeProvider>
+            {/* Tab 1 */}
+            <TabPanel value='1'>
+              <AddSubreddits
+                subreddits={this.state.subreddits}
+                newSubreddit={this.newSubreddit}
+                removeSubreddit={this.removeSubreddit}
+                editSubreddit={this.editSubreddit}
+                searchSubreddit={this.searchSubreddit}
+              />
+            </TabPanel>
+
+            {/* Tab 2 */}
+            <TabPanel value='2'>
+              <Graph
+                options={this.state.options}
+                series={this.state.series}
+              />
+            </TabPanel>
+          </TabContext>
+        </main>
+      </div>
     )
   }
 }
