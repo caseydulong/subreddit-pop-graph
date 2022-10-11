@@ -125,7 +125,7 @@ export default class App extends React.Component {
     let params = new URLSearchParams()
       params.append('exact', 'true')
       params.append('include_over_18', 'true')
-      params.append('include_unadvertisable', 'false')
+      params.append('include_unadvertisable', 'true')
       params.append('query', subreddits[id].data.name)
       params.append('search_query_id', id)
 
