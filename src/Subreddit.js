@@ -20,7 +20,9 @@ export default class Subreddit extends React.Component {
           id={this.props.id}
           onClick={this.props.removeSubreddit}
         >
-          <DeleteOutlineOutlinedIcon />
+          <DeleteOutlineOutlinedIcon
+            id={this.props.id}
+          />
         </IconButton>
       </div>
     )

@@ -125,7 +125,7 @@ export default class App extends React.Component {
     let params = new URLSearchParams()
       params.append('exact', 'true')
       params.append('include_over_18', 'true')
-      params.append('include_unadvertisable', 'false')
+      params.append('include_unadvertisable', 'true')
       params.append('query', subreddits[id].data.name)
       params.append('search_query_id', id)
 
@@ -153,19 +153,29 @@ export default class App extends React.Component {
   }
 
   updateGraph() {
-    let aSubreddits = this.state.subreddits
-    // Deep copy of array so state recognizes as an updated object and re-renders
-    // let aOptions = structuredClone(this.state.options)
-    let aOptions = this.state.options
-    let aSeries = this.state.series
+    let subreddits = this.state.subreddits
+    let options = this.state.options
+    let series = this.state.series
 
-    aOptions.xaxis.categories = aSubreddits.map(sub => sub.data.name)
-    aSeries[0].data = aSubreddits.map(sub => sub.data.subscriber_count)
-    aSeries[1].data = aSubreddits.map(sub => sub.data.active_user_count)
+    let categories = []
+    let series0 = []
+    let series1 = []
+
+    for (const sub of subreddits) {
+      if (sub.validation > 0) {
+        categories.push(sub.data.name)
+        series0.push(sub.data.subscriber_count)
+        series1.push(sub.data.active_user_count)
+      }
+    }
+
+    options.xaxis.categories = categories
+    series[0].data = series0
+    series[1].data = series1
 
     this.setState({
-      options: aOptions,
-      series: aSeries
+      options: options,
+      series: series
     })
   }
 

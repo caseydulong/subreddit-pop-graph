@@ -37,7 +37,7 @@ export default class AddSubreddits extends React.Component {
     return (
       <div className='Add-subreddits'>
       <p>Enter subreddits to compare user populations.</p>
-        <div class='Add-subreddits-container'>
+        <div className='Add-subreddits-container'>
           {subreddits}
         </div>
         <Fab
