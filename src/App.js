@@ -23,18 +23,14 @@ export default class App extends React.Component {
         chart: {
           id: 'subreddit-pop',
           type: 'bar',
-          stacked: true,
-          toolbar: { show: false }
+          toolbar: { show: false },
         },
         xaxis: {
           categories: []
         }
       },
       series: [{
-        name: 'subscriber_count',
-        data: []
-      }, {
-        name: 'active_user_count',
+        name: 'Subscriber Count',
         data: []
       }]
     }
@@ -159,19 +155,16 @@ export default class App extends React.Component {
 
     let categories = []
     let series0 = []
-    let series1 = []
 
     for (const sub of subreddits) {
       if (sub.validation > 0) {
         categories.push(sub.data.name)
         series0.push(sub.data.subscriber_count)
-        series1.push(sub.data.active_user_count)
       }
     }
 
     options.xaxis.categories = categories
     series[0].data = series0
-    series[1].data = series1
 
     this.setState({
       options: options,
