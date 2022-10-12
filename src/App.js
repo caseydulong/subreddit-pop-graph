@@ -153,19 +153,30 @@ export default class App extends React.Component {
   }
 
   updateGraph() {
-    let aSubreddits = this.state.subreddits
+    let subreddits = this.state.subreddits
+    
+    // Check if there are any valid subs
+    let validSub = false
+    for (const sub of subreddits) {
+      if (sub.validation > 0) {
+        validSub = true
+        break
+      }
+    }
+    if (validSub == false) return
+
     // Deep copy of array so state recognizes as an updated object and re-renders
     // let aOptions = structuredClone(this.state.options)
-    let aOptions = this.state.options
-    let aSeries = this.state.series
+    let options = this.state.options
+    let series = this.state.series
 
-    aOptions.xaxis.categories = aSubreddits.map(sub => sub.data.name)
-    aSeries[0].data = aSubreddits.map(sub => sub.data.subscriber_count)
-    aSeries[1].data = aSubreddits.map(sub => sub.data.active_user_count)
+    options.xaxis.categories = subreddits.map(sub => sub.data.name)
+    series[0].data = subreddits.map(sub => sub.data.subscriber_count)
+    series[1].data = subreddits.map(sub => sub.data.active_user_count)
 
     this.setState({
-      options: aOptions,
-      series: aSeries
+      options: options,
+      series: series
     })
   }
 
