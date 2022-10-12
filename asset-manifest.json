@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/subreddit-pop-graph/static/css/main.28def786.css",
+    "main.js": "/subreddit-pop-graph/static/js/main.0ee2f48f.js",
+    "index.html": "/subreddit-pop-graph/index.html",
+    "main.28def786.css.map": "/subreddit-pop-graph/static/css/main.28def786.css.map",
+    "main.0ee2f48f.js.map": "/subreddit-pop-graph/static/js/main.0ee2f48f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.28def786.css",
+    "static/js/main.0ee2f48f.js"
+  ]
+}
