@@ -156,24 +156,32 @@ export default class App extends React.Component {
 
   updateGraph() {
     let subreddits = this.state.subreddits
-    let options = this.state.options
+    // let options = this.state.options
     let series = this.state.series
+    let newSeries = []
 
-    let categories = []
-    let series0 = []
+    // let categories = []
+    // let series0 = []
 
     for (const sub of subreddits) {
       if (sub.validation > 0) {
-        categories.push(sub.data.name)
-        series0.push(sub.data.subscriber_count)
+        // categories.push(sub.data.name)
+        // series0.push(sub.data.subscriber_count)
+        let subData = {
+          x: sub.data.name,
+          y: sub.data.subscriber_count
+        }
+        newSeries.push(subData)
       }
     }
 
-    options.xaxis.categories = categories
-    series[0].data = series0
+    // options.xaxis.categories = categories
+    // series[0].data = series0
+
+    series[0].data = newSeries
 
     this.setState({
-      options: options,
+      // options: options,
       series: series
     })
   }
