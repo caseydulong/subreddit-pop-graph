@@ -20,14 +20,19 @@ export default class App extends React.Component {
       auth: {},
       subreddits: [],
       options: {
+        colors: ['#66b032'],
+        dataLabels: { style: { colors: ['#1b3408'] }},
+        tooltip: { theme: 'dark' },
         chart: {
           id: 'subreddit-pop',
           type: 'bar',
           toolbar: { show: false },
         },
         xaxis: {
-          categories: []
-        }
+          categories: [],
+          labels: { style: { colors: ['#f7f7d4'] }}
+        },
+        yaxis: { labels: { style: { colors: ['#f7f7d4'] }}}
       },
       series: [{
         name: 'Subscriber Count',
@@ -54,6 +59,7 @@ export default class App extends React.Component {
     this.setState({ tabIndex: newTabIndex })
     if (newTabIndex == '2') { this.updateGraph() }
   }
+
 
   getToken() {
     let username = 'rtk6PchFDyqEd3ZEMggrjA'
