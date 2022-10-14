@@ -28,8 +28,8 @@ export default class App extends React.Component {
           type: 'bar',
           toolbar: { show: false },
         },
-        xaxis: { labels: { style: { colors: ['#f7f7d4'] }}},
-        yaxis: { labels: { style: { colors: ['#f7f7d4'] }}}
+        xaxis: { labels: { style: { colors: '#f7f7d4' }}},
+        yaxis: { labels: { style: { colors: '#f7f7d4' }}}
       },
       series: [{
         name: 'Subscriber Count',
