@@ -73,3 +73,7 @@ html {
   margin: 0;
   max-width: 1000px;
 }
+
+.apexcharts-tooltip, .apexcharts-active {
+  color: black;
+}
