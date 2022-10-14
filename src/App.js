@@ -20,14 +20,16 @@ export default class App extends React.Component {
       auth: {},
       subreddits: [],
       options: {
+        colors: ['#66b032'],
+        dataLabels: { style: { colors: ['#1b3408'] }},
+        tooltip: { theme: 'dark' },
         chart: {
           id: 'subreddit-pop',
           type: 'bar',
           toolbar: { show: false },
         },
-        xaxis: {
-          categories: []
-        }
+        xaxis: { labels: { style: { colors: '#f7f7d4' }}},
+        yaxis: { labels: { style: { colors: '#f7f7d4' }}}
       },
       series: [{
         name: 'Subscriber Count',
@@ -54,6 +56,7 @@ export default class App extends React.Component {
     this.setState({ tabIndex: newTabIndex })
     if (newTabIndex == '2') { this.updateGraph() }
   }
+
 
   getToken() {
     let username = 'rtk6PchFDyqEd3ZEMggrjA'
@@ -150,24 +153,22 @@ export default class App extends React.Component {
 
   updateGraph() {
     let subreddits = this.state.subreddits
-    let options = this.state.options
     let series = this.state.series
-
-    let categories = []
-    let series0 = []
+    let newSeries = []
 
     for (const sub of subreddits) {
       if (sub.validation > 0) {
-        categories.push(sub.data.name)
-        series0.push(sub.data.subscriber_count)
+        let subData = {
+          x: sub.data.name,
+          y: sub.data.subscriber_count
+        }
+        newSeries.push(subData)
       }
     }
 
-    options.xaxis.categories = categories
-    series[0].data = series0
+    series[0].data = newSeries
 
     this.setState({
-      options: options,
       series: series
     })
   }

@@ -4,7 +4,7 @@ import Chart from 'react-apexcharts'
 export default class Graph extends React.Component {
   render() {
     let noData = true
-    if (this.props.options.xaxis.categories.length != 0) noData = false
+    if (this.props.series[0].data.length != 0) noData = false
 
     if (noData) return (
       <p>No data.</p>
