@@ -6,16 +6,18 @@ export default class Subreddit extends React.Component {
   render() {
     return (
       <div className='Subreddit'>
-        <TextField
-          label='Enter Subreddit'
-          variant='filled'
-          id={this.props.id}
-          error={this.props.validation < 0}
-          helperText={this.props.helperText}
-          value={this.props.value}
-          onChange={this.props.handleChange}
-          onBlur={this.props.searchSubreddit}
-        />
+        <form noValidate autoComplete='off'>
+          <TextField
+            variant='outlined'
+            label='Enter Subreddit'
+            id={this.props.id}
+            error={this.props.validation < 0}
+            helperText={this.props.helperText}
+            value={this.props.value}
+            onChange={this.props.handleChange}
+            onBlur={this.props.searchSubreddit}
+          />
+        </form>
         <IconButton
           id={this.props.id}
           onClick={this.props.removeSubreddit}
