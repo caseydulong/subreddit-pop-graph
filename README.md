@@ -1,70 +1,38 @@
-# Getting Started with Create React App
+# Subreddit Pop Graph
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Subreddit Pop Graph is a simple React application that utilizes the Reddit API to plot subscriber counts of entered subreddits against each other. Can be used to roughly gauge popularity of games or other topics of interest.
 
-## Available Scripts
+Live application can be accessed [here](https://caseydulong.github.io/subreddit-pop-graph/).
 
-In the project directory, you can run:
+## Technologies Used
 
-### `npm start`
+- JavaScript
+- React
+- CSS
+- Reddit API
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Future Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Visual confirmation when API call is made successfully.
+- Predictive subreddit autofill using Reddit API.
+- Some raw data on subreddit entry form, such as subscriber counts.
+- Ability to view a chart of other types of data, such as active user counts or population growth.
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Media
 
-### `npm run build`
+### Subreddit Entry Form
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![Subreddit entry form](./media/pop-graph-entry.png)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Subreddit Subscriber Count Chart
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![Subreddit subscriber count chart](./media/pop-graph-chart.png)
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Installation
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Run `npm start` to start the React app.
+- Run `npm run deploy` to deploy the current branch to the live site.
