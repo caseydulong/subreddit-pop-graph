@@ -28,7 +28,7 @@ const forestTheme = createTheme({
     error: {
       main: '#f44336',
     },
-  },
+  }
 })
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
