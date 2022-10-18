@@ -9,6 +9,7 @@ Live application can be accessed [here](https://caseydulong.github.io/subreddit-
 - JavaScript
 - React
 - CSS
+- Material UI
 - Reddit API
 
 ## Future Features
